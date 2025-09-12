@@ -1,0 +1,5 @@
+docker/.env
+backend/.env
+.idea
+/backend/.editorconfig
+docker/nginx/logs

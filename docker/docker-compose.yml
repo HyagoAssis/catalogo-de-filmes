@@ -1,0 +1,79 @@
+services:
+  # ─────────────────────────────
+  # Nginx (Proxy para Vue dev + Laravel API)
+  # ─────────────────────────────
+  nginx:
+    image: nginx:latest
+    container_name: nginx2
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ../backend:/var/www/backend
+      - ./nginx/logs:/var/log/nginx
+    networks:
+      app-network:
+        aliases:
+          - catalogo.site
+
+  # ─────────────────────────────
+  # MySQL
+  # ─────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: mysql2
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    env_file:
+      - .env
+
+
+  # ─────────────────────────────
+  # Frontend Vue
+  # ─────────────────────────────
+  frontend:
+    image: node:22
+    container_name: frontend
+    working_dir: /app
+    volumes:
+      - ../frontend:/app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 8080"
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    tty: true
+    networks:
+      - app-network
+
+  # ─────────────────────────────
+  # Backend Laravel
+  # ─────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    working_dir: /var/www/backend
+    depends_on:
+      - mysql
+    volumes:
+      - ../backend:/var/www/backend
+      - sync-status:/sync-status
+    networks:
+      - app-network
+
+volumes:
+  sync-status:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge
