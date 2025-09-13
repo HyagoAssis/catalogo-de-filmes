@@ -58,11 +58,9 @@ services:
   # ─────────────────────────────
   backend:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     container_name: backend
-    working_dir: /var/www/backend
-    entrypoint: [ "sh", "/var/www/backend/entrypoint.sh" ]
     depends_on:
       - mysql
     volumes:

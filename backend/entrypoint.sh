@@ -1,7 +1,8 @@
 #!/bin/sh
-composer install --no-interaction --optimize-autoloader
+set -e
+echo 'Rodando entrypoint'
 
-# 2️⃣ Rodar migrations
+composer install --no-interaction --optimize-autoloader
 php artisan migrate --force
 
-php-fpm
+exec php-fpm

@@ -35,14 +35,14 @@ RUN docker-php-ext-configure gd --with-jpeg --with-freetype \
 # ─────────────────────────────
 # 4. Extensões via PECL (opcionais, mas úteis p/ cache/otimização)
 # ─────────────────────────────
-RUN pecl install \
-    memcached \
-    msgpack \
-    igbinary \
-    && docker-php-ext-enable \
-    memcached \
-    msgpack \
-    igbinary
+#RUN pecl install \
+#    memcached \
+#    msgpack \
+#    igbinary \
+#    && docker-php-ext-enable \
+#    memcached \
+#    msgpack \
+#    igbinary
 
 # ─────────────────────────────
 # 5. Instala Composer
@@ -50,7 +50,15 @@ RUN pecl install \
 RUN curl -sS https://getcomposer.org/installer | php -- --2 \
     && mv composer.phar /usr/local/bin/composer
 
+
 # ─────────────────────────────
-# 6. Expõe porta PHP-FPM
+# 5. WORKDIR e ENTRYPOINT
 # ─────────────────────────────
+WORKDIR /var/www/backend
+
+RUN useradd -ms /bin/bash devuser
+USER devuser
+
+ENTRYPOINT ["./entrypoint.sh"]
+
 EXPOSE 9000
