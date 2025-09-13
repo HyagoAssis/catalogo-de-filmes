@@ -17,6 +17,8 @@ return new class extends Migration
             $table->unsignedInteger('movie_db_id');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
+
+            $table->unique(['movie_db_id', 'user_id']);
         });
     }
 

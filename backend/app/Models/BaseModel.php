@@ -13,11 +13,11 @@ class BaseModel extends Model
 
     public static function table($alias = null): string
     {
-        return static::getModel()->getTable() . (is_null($alias) ? '' : ' as ' . $alias);
+        return static::getModel()->getTable().(is_null($alias) ? '' : ' as '.$alias);
     }
 
     public static function column($column, $alias = null): string
     {
-        return (is_null($alias) ? static::table() : $alias) . '.' . $column;
+        return (is_null($alias) ? static::table() : $alias).'.'.$column;
     }
 }

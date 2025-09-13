@@ -14,7 +14,9 @@ class FavoriteMovieController extends Controller
      */
     public function index()
     {
-        //
+        $data = FavoriteMovie::query()->paginate();
+
+        return FavoriteMovieResource::collection($data);
     }
 
     /**
@@ -34,7 +36,7 @@ class FavoriteMovieController extends Controller
 
         $favoriteMovie = $user->favoriteMovies()->create([
             'name' => $request->name,
-            'movie_db_id' => $request->movie_db_id
+            'movie_db_id' => $request->movie_db_id,
         ]);
 
         return FavoriteMovieResource::make($favoriteMovie);
@@ -67,8 +69,13 @@ class FavoriteMovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavoriteMovie $favoriteMovie)
+    public function destroy(FavoriteMovie $favoriteMovie): \Illuminate\Http\JsonResponse
     {
-        //
+        $deleted = $favoriteMovie->delete();
+
+        return response()->json([
+            'message' => $deleted ? 'Filme favorito removido' : 'Erro ao remover filme favorito',
+        ], $deleted ? 200 : 500);
+
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\FavoriteMovie;
 
+use App\Rules\FavoriteMovieUnique;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -22,7 +24,12 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['string', 'required'],
+            'movie_db_id' => [
+                'integer',
+                'required',
+                new FavoriteMovieUnique(),
+            ],
         ];
     }
 }
