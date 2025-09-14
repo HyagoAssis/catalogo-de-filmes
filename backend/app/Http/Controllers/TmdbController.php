@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchMovieRequest;
 use App\Libs\TMDB\TmdbClient;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TmdbController extends Controller
 {
-    public function searchMovies(Request $request): JsonResponse
+    public function searchMovies(SearchMovieRequest $request): JsonResponse
     {
         $page = $request->input('page', 1);
 
-        $data = TmdbClient::getInstance()->searchMovie($request->get('query'), $request->get('page_size', 10), $page);
+        $data = TmdbClient::getInstance()->searchMovie($request->query, $page);
 
         return response()->json($data);
     }
