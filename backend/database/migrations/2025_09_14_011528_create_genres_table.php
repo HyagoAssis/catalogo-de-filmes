@@ -11,17 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favorite_movies', function (Blueprint $table) {
+        Schema::create('genres', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->unsignedInteger('movie_db_id');
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('overview')->nullable();
-            $table->string('poster_path')->nullable();
-            $table->date('release_date')->nullable();
             $table->timestamps();
-
-            $table->unique(['movie_db_id', 'user_id']);
         });
     }
 
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('favorite_movies');
+        Schema::dropIfExists('genres');
     }
 };

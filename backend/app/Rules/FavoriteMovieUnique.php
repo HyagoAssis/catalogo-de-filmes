@@ -14,6 +14,7 @@ class FavoriteMovieUnique implements ValidationRule
      * Run the validation rule.
      *
      * @param  \Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     *
      * @throws ValidationException
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
