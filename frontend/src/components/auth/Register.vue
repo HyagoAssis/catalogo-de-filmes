@@ -37,7 +37,9 @@
           class="w-full p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-
+      <div v-if="errorMessage">
+        <p class="text-red-500">{{ errorMessage }}</p>
+      </div>
       <div class="mt-4">
         <button
           type="submit"
@@ -74,6 +76,7 @@ export default {
   data() {
     return {
       userToRegister: { ...DEFAULT_USER },
+      errorMessage: null,
     };
   },
 
@@ -81,15 +84,19 @@ export default {
     submit() {
       authService
         .register(this.userToRegister)
-        .then(() => {})
+        .then(() => {
+          this.$user.setSession();
+
+          this.$emit('close');
+          this.$router.push({ name: 'home' });
+          this.errorMessage = null;
+        })
         .catch((error) => {
-          console.log(error);
+          this.errorMessage =
+            error?.response.data?.message ??
+            'Não foi possível realizar login, verique os campos e tente novamente';
         });
     },
-  },
-
-  created() {
-    authService.csrfToken().then(() => {});
   },
 };
 </script>

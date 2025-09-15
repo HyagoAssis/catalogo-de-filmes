@@ -5,14 +5,18 @@
       @change-action="actualAction = $event"
       @close="$emit('close')"
     />
-    <Register v-if="actualAction === 'register'" @change-action="actualAction = $event" />
+    <Register
+      v-if="actualAction === 'register'"
+      @change-action="actualAction = $event"
+      @close="$emit('close')"
+    />
   </Modal>
 </template>
 
 <script>
 import Modal from '@/components/common/Modal.vue';
-import Login from '@/components/common/auth/Login.vue';
-import Register from '@/components/common/auth/Register.vue';
+import Login from './Login.vue';
+import Register from './Register.vue';
 
 export default {
   name: 'AuthModal',

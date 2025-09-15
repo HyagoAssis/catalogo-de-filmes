@@ -2,9 +2,9 @@ services:
   # ─────────────────────────────
   # Nginx (Proxy para Vue dev + Laravel API)
   # ─────────────────────────────
-  nginx:
+  server:
     image: nginx:latest
-    container_name: nginx2
+    container_name: server
     depends_on:
       - frontend
       - backend
@@ -22,12 +22,12 @@ services:
   # ─────────────────────────────
   # MySQL
   # ─────────────────────────────
-  mysql:
+  db:
     image: mysql:8.0
-    container_name: mysql2
+    container_name: db
     restart: unless-stopped
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
@@ -57,12 +57,10 @@ services:
   # Backend Laravel
   # ─────────────────────────────
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: hyagoassis/backend:latest
     container_name: backend
     depends_on:
-      - mysql
+      - db
     volumes:
       - ../backend:/var/www/backend
       - sync-status:/sync-status

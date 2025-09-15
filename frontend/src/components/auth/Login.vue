@@ -26,7 +26,9 @@
           required
         />
       </div>
-
+      <div v-if="errorMessage">
+        <p class="text-red-500">{{ errorMessage }}</p>
+      </div>
       <div>
         <button
           type="submit"
@@ -61,6 +63,7 @@ export default {
   data() {
     return {
       userToRegister: { ...DEFAULT_USER },
+      errorMessage: null,
     };
   },
 
@@ -71,11 +74,14 @@ export default {
         .then(() => {
           this.$user.setSession();
 
+          this.errorMessage = null;
           this.$emit('close');
           this.$router.push({ name: 'home' });
         })
         .catch((error) => {
-          console.log(error);
+          this.errorMessage =
+            error?.response.data?.message ??
+            'Não foi possível realizar login, verique os campos e tente novamente';
         });
     },
   },

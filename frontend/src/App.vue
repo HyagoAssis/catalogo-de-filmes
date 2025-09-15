@@ -1,15 +1,12 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- Navbar -->
     <nav class="bg-gray-900 text-white shadow-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
-          <!-- Logo -->
           <div class="flex-shrink-0">
             <router-link to="/" class="text-xl font-bold"> Catálogo de Filmes </router-link>
           </div>
 
-          <!-- Links Desktop -->
           <div class="hidden md:flex items-center space-x-4">
             <template v-for="route in menuRoutes">
               <router-link
@@ -26,7 +23,7 @@
 
               <button
                 @click="logout"
-                class="cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 rounded font-semibold transition-colors"
+                class="cursor-pointer px-4 py-2 border border-red-600 text-red-600 rounded font-semibold transition-colors hover:bg-red-600 hover:text-white"
               >
                 Logout
               </button>
@@ -34,20 +31,19 @@
             <template v-else>
               <button
                 @click="showLoginModal"
-                class="cursor-pointer px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold transition-colors"
+                class="cursor-pointer px-4 py-2 border border-white text-white rounded font-semibold transition-colors hover:bg-white hover:text-gray-900"
               >
-                Logar
+                Entrar
               </button>
               <button
                 @click="showRegisterModal"
-                class="cursor-pointer px-4 py-2 bg-green-600 hover:bg-green-700 rounded font-semibold transition-colors"
+                class="cursor-pointer px-4 py-2 bg-white text-gray-900 rounded font-semibold transition-colors hover:bg-gray-200"
               >
                 Registrar
               </button>
             </template>
           </div>
 
-          <!-- Botão Mobile -->
           <div class="md:hidden">
             <button @click="mobileMenuOpen = !mobileMenuOpen" class="focus:outline-none">
               <svg
@@ -88,6 +84,31 @@
             {{ route.props.title }}
           </router-link>
         </template>
+
+        <template v-if="$user.user">
+          <p class="ml-4 font-bold">Olá, {{ $user.user.name }}</p>
+
+          <button
+            @click="logout"
+            class="cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 rounded font-semibold transition-colors"
+          >
+            Logout
+          </button>
+        </template>
+        <template v-else>
+          <button
+            @click="showLoginModal"
+            class="cursor-pointer px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold transition-colors"
+          >
+            Logar
+          </button>
+          <button
+            @click="showRegisterModal"
+            class="cursor-pointer px-4 py-2 bg-green-600 hover:bg-green-700 rounded font-semibold transition-colors"
+          >
+            Registrar
+          </button>
+        </template>
       </div>
     </nav>
 
@@ -105,7 +126,7 @@
 </template>
 
 <script>
-import AuthModal from '@/components/common/auth/AuthModal.vue';
+import AuthModal from '@/components/auth/AuthModal.vue';
 import router from '@/router/index.js';
 
 export default {

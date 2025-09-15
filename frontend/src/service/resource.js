@@ -16,6 +16,7 @@ function resource(path, actions = {}) {
       get: (id, params = {}, config = {}) => api.get(`${path}/${id}`, { params, ...config }),
       query: (params = {}, config = {}) => api.get(path, { params, ...config }),
       delete: (id) => api.delete(`${path}/${id}`),
+      save: (obj, params = {}, config = {}) => api.post(path, obj, { params, ...config }),
     },
     actions
   );
@@ -53,3 +54,21 @@ export const authService = {
       ...config,
     }),
 };
+
+export const tmdbService = {
+  searchMovie: (params = {}, config = {}) =>
+    api.get(`/api/search_movie`, {
+      params,
+      ...config,
+    }),
+};
+
+export const favoriteMoviesService = resource('/api/favorite_movie', {
+  deleteByMovieDbId: (id, params = {}, config = {}) =>
+    api.delete(`/api/favorite_movie/delete_by_movie_db_id/${id}`, {
+      params,
+      ...config,
+    }),
+});
+
+export const genresService = resource('/api/genres');

@@ -33,18 +33,6 @@ RUN docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install gd
 
 # ─────────────────────────────
-# 4. Extensões via PECL (opcionais, mas úteis p/ cache/otimização)
-# ─────────────────────────────
-#RUN pecl install \
-#    memcached \
-#    msgpack \
-#    igbinary \
-#    && docker-php-ext-enable \
-#    memcached \
-#    msgpack \
-#    igbinary
-
-# ─────────────────────────────
 # 5. Instala Composer
 # ─────────────────────────────
 RUN curl -sS https://getcomposer.org/installer | php -- --2 \
