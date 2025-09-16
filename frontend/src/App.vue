@@ -141,7 +141,8 @@ export default {
   methods: {
     logout() {
       this.$user.logout();
-      this.$router.push('/');
+
+      window.location.reload();
     },
     showLoginModal() {
       this.authModal.open('login');

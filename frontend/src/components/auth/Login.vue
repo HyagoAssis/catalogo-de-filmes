@@ -74,9 +74,7 @@ export default {
         .then(() => {
           this.$user.setSession();
 
-          this.errorMessage = null;
-          this.$emit('close');
-          this.$router.push({ name: 'home' });
+          window.location.reload();
         })
         .catch((error) => {
           this.errorMessage =
