@@ -20,6 +20,7 @@ export const routes = [
       showInMenu: true,
       title: 'Favoritos',
     },
+    meta: { requiresAuth: true },
   },
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },

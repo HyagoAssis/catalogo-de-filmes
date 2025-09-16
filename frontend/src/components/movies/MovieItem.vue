@@ -60,6 +60,7 @@
 <script>
 import moment from 'moment';
 import { favoriteMoviesService } from '@/service/resource.js';
+import { authModalStore } from '@/global-scopes/auth-modal.js';
 
 export default {
   name: 'MovieItem',
@@ -86,6 +87,11 @@ export default {
 
   methods: {
     setFavorite(movie) {
+      if (!this.$user || !this.$user.user) {
+        authModalStore.open('login');
+        return;
+      }
+
       const promise = movie.is_favorite
         ? this.isFavoriteScreen
           ? favoriteMoviesService.delete(movie.id)

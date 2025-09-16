@@ -37,8 +37,13 @@ export default {
     };
   },
 
-  created() {
-    this.actualAction = this.action;
+  watch: {
+    action: {
+      immediate: true,
+      handler() {
+        this.actualAction = this.action;
+      },
+    },
   },
 };
 </script>

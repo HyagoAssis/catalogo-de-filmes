@@ -115,12 +115,7 @@
     <main class="flex-1">
       <RouterView />
 
-      <AuthModal
-        v-model="showAuthModal"
-        v-if="actionAuth"
-        :action="actionAuth"
-        @close="showAuthModal = false"
-      />
+      <AuthModal v-model="authModal.show" :action="authModal.action" @close="authModal.close()" />
     </main>
   </div>
 </template>
@@ -128,52 +123,42 @@
 <script>
 import AuthModal from '@/components/auth/AuthModal.vue';
 import router from '@/router/index.js';
+import { authModalStore } from '@/global-scopes/auth-modal.js';
 
 export default {
   name: 'App',
   components: { AuthModal },
+  setup() {
+    return {
+      authModal: authModalStore,
+    };
+  },
   data() {
     return {
       mobileMenuOpen: false,
-
-      showAuthModal: false,
-      actionAuth: null,
     };
   },
-
-  watch: {
-    showAuthModal: {
-      immediate: true,
-      handler(to) {
-        if (!to) {
-          this.actionAuth = null;
-        }
-      },
-    },
-  },
-
   methods: {
-    showLoginModal() {
-      this.showAuthModal = true;
-      this.actionAuth = 'login';
-    },
-
-    showRegisterModal() {
-      this.showAuthModal = true;
-      this.actionAuth = 'register';
-    },
-
     logout() {
       this.$user.logout();
+      this.$router.push('/');
+    },
+    showLoginModal() {
+      this.authModal.open('login');
+    },
+    showRegisterModal() {
+      this.authModal.open('register');
     },
   },
-
   computed: {
     routes() {
       return router.options.routes;
     },
     menuRoutes() {
-      return this.routes.filter((route) => route.props?.showInMenu);
+      return this.routes.filter((route) => {
+        const requiresAuth = route.meta?.requiresAuth ?? false;
+        return route.props?.showInMenu && (!requiresAuth || this.$user.isLogged());
+      });
     },
   },
 };
