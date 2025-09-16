@@ -16,12 +16,15 @@
           <h2 class="text-lg font-semibold text-gray-900">
             {{ title }}
           </h2>
-          <button @click="setFavorite(movie)" class="cursor-pointer transition-colors">
+          <button
+            @click="isFavoriteScreen ? deleteFavoriteMovie(movie.id) : setFavorite(movie)"
+            class="cursor-pointer transition-colors"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
               :class="
-                movie.is_favorite
+                movie.is_favorite || isFavoriteScreen
                   ? 'text-red-600 hover:text-gray-400'
                   : 'text-gray-400 hover:text-red-600'
               "
@@ -41,10 +44,11 @@
           </button>
         </div>
 
-        <p class="mt-2 text-sm text-gray-600 line-clamp-6">
+        <p class="mt-2 text-sm text-gray-600 line-clamp-5">
           {{ movie.overview }}
         </p>
       </div>
+      <p class="mt-4 text-sm text-gray-500">{{ formatGenres(movie.genres) }}</p>
 
       <p class="mt-4 text-sm text-gray-500 text-right">
         {{ moment(movie.release_date).format('DD/MM/YYYY') }}
@@ -65,6 +69,7 @@ export default {
       type: Object,
       required: true,
     },
+    isFavoriteScreen: false,
   },
 
   data() {
@@ -82,11 +87,13 @@ export default {
   methods: {
     setFavorite(movie) {
       const promise = movie.is_favorite
-        ? favoriteMoviesService.deleteByMovieDbId(movie.id)
+        ? this.isFavoriteScreen
+          ? favoriteMoviesService.delete(movie.id)
+          : favoriteMoviesService.deleteByMovieDbId(movie.id)
         : favoriteMoviesService.save({
             name: movie.original_title,
             genres: movie.genre_ids,
-            movie_db_id: movie.id,
+            movie_db_id: this.isFavoriteScreen ? movie.movie_db_id : movie.id,
             overview: movie.overview,
             poster_path: movie.poster_path,
             release_date: movie.release_date,
@@ -96,7 +103,25 @@ export default {
         .then(() => {
           movie.is_favorite = !movie.is_favorite;
         })
-        .catch(() => console.log('Não foi possível salvar'));
+        .catch(() => this.$notification.error('Erro!', 'Não foi possível salvar'));
+    },
+
+    deleteFavoriteMovie(id) {
+      favoriteMoviesService
+        .delete(id)
+        .then(() => {})
+        .catch(() => this.$notification.error('Erro!', 'Não foi possível salvar'))
+        .then(() => {
+          this.$emit('reloadPage');
+        });
+    },
+
+    formatGenres(genres) {
+      if (!genres) {
+        return;
+      }
+
+      return genres.map((genre) => genre.name).join(', ');
     },
   },
 };

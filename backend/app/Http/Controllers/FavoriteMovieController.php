@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FavoriteMovie\StoreRequest;
 use App\Http\Resources\FavoriteMovieResource;
 use App\Models\FavoriteMovie;
+use App\Models\FavoriteMovieGenre;
 use App\Models\Genre;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class FavoriteMovieController extends Controller
@@ -16,12 +18,28 @@ class FavoriteMovieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         /** @var User $user */
         $user = auth()->user();
+        $querySearch = $request->get('query');
+        $genreId = $request->get('genre_id');
 
-        $data = $user->favoriteMovies()->paginate();
+        $data = $user
+            ->favoriteMovies()
+            ->when($querySearch, function ($query, $querySearch) {
+                $query->where(FavoriteMovie::column('name'), 'like', '%'.$querySearch.'%');
+            })
+            ->when($genreId, function ($query, $genreId) {
+                $query
+                    ->join(FavoriteMovieGenre::table(), FavoriteMovie::column('id'),
+                        FavoriteMovieGenre::column('favorite_movie_id'))
+                    ->where(FavoriteMovieGenre::column('genre_id'), '=', $genreId);
+            })
+            ->groupBy(FavoriteMovie::column('id'))
+            ->with('genres')
+            ->select(FavoriteMovie::column('*'))
+            ->paginate();
 
         return FavoriteMovieResource::collection($data);
     }

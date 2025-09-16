@@ -4,8 +4,9 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import { router } from '@/router/index.js';
 import { User } from '@/global-scopes/user.js';
+import alerts from '@/alerts.js';
 
-const app = createApp(App).use(router);
+const app = createApp(App).use(router).use(alerts);
 
 User.setSession();
 app.config.globalProperties.$user = User;

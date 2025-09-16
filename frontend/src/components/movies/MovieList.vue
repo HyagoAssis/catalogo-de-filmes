@@ -6,9 +6,9 @@
     </div>
   </template>
   <template v-else>
-    <div class="grid grid-cols-2 gap-4">
-      <div v-for="item in items" :key="item.id">
-        <MovieItem :movie="item" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div v-for="item in items" :key="item.id" class="ml-2 mr-2">
+        <MovieItem :movie="item" :is-favorite-screen="isFavoriteScreen" @reloadPage="fetchItems" />
       </div>
     </div>
 
@@ -37,7 +37,11 @@ export default {
     dataKey: String,
     paginationKeys: Object,
     canFetchItems: false,
+    paginationObject: null,
+    isFavoriteScreen: false,
   },
+
+  emits: ['busy', 'done'],
 
   data() {
     return {
@@ -91,6 +95,7 @@ export default {
       }
 
       this.requests++;
+      this.$emit('busy');
 
       this.requestCancelToken = CancelToken.source();
 
@@ -102,21 +107,27 @@ export default {
       )
         .then((response) => {
           this.items = response.data[this.dataKey];
-          this.updatePagination(response.data);
+
+          this.updatePagination(
+            !this.paginationObject ? response.data : response.data[this.paginationObject]
+          );
         })
         .catch((error) => {
           this.items = null;
           if (!axios.isCancel(error)) {
-            //this.$notification.error('Erro!', 'Não foi possível carregar os resultados');
+            this.$notification.error('Erro!', 'Não foi possível carregar os resultados');
           }
         })
-        .then(() => this.requests--);
+        .then(() => {
+          this.requests--;
+          this.$emit('done');
+        });
     },
 
     updatePagination(resourcePagination) {
       if (resourcePagination) {
-        this.pagination.perPage = resourcePagination[this.pagination.perPage]
-          ? resourcePagination[this.pagination.perPage]
+        this.pagination.perPage = resourcePagination[this.paginationKeys.perPage]
+          ? resourcePagination[this.paginationKeys.perPage]
           : resourcePagination[this.paginationKeys.total] /
             resourcePagination[this.paginationKeys.totalPages];
         this.pagination.currentPage = resourcePagination[this.paginationKeys.page];
