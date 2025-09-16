@@ -24,28 +24,26 @@ integrando com a **API do TMDB**.
     cd backend
     cp .env.example .env
     cd ..
+    ```
 
-3. Copie .env.exemple para .env do Docker
-    ```bash
-    cd docker
-    cp .env.example .env
-    cd ..
-
-4. Edite o arquivo hosts do sistema operacional
+3. Edite o arquivo hosts do sistema operacional
     - Tutorial : https://docs.rackspace.com/docs/como-modifico-meus-arquivos-de-hosts
     - Insira as linhas abaixo:
    ```bash
     127.0.0.1 catalogo.site
     127.0.0.1 api.catalogo.site
+   ```
 
-5. Obtenha uma chave para API do TMDB
-    - Acesse: https://developer.themoviedb.org/reference/intro/getting-started
-    - Clique em GET API Key, realize login, siga os passos e obtenha uma API Key,
-    - Tutorial detalhado: https://www.educative.io/courses/movie-database-api-python/set-up-the-credentials
-    - Insira ela no seu arquivo .env localizado na pasta backend
+4. Obtenha uma chave para API do TMDB
+
+- Acesse: https://developer.themoviedb.org/reference/intro/getting-started
+- Clique em GET API Key, realize login, siga os passos e obtenha uma API Key,
+- Tutorial detalhado: https://www.educative.io/courses/movie-database-api-python/set-up-the-credentials
+- Insira ela no seu arquivo .env localizado na pasta backend
+
     ```dotenv
     TMDB_API_KEY={SUA_API_KEY}
-   ```
+    ```
 
 6. Rode a aplicação
     ```bash
@@ -59,6 +57,7 @@ integrando com a **API do TMDB**.
     - Testes podem ser realizados pelo seguinte comando:
     ```bash
     docker exec -it backend  php artisan test
+
    ```
 
 ## Utilização
@@ -83,19 +82,19 @@ integrando com a **API do TMDB**.
     │   │   │       ├── FavoriteMovieController.php   # Controller do CRUD de Filmes Favoritos
     │   │   │       └── TmdbController.php            # Controller da busca à API do TMDB
     │   │   ├── Models/
-    │   │   │   ├── FavoriteMovie.php                 # Model dos Filmes Favoritos
-    │   │   │   ├── Genre.php                         # Model dos gêneros de filmes
-    │   │   │   └── FavoriteMovieGenre.php            # Model das relações entre gêneros e filmes favoritos
+    │   │   │   ├── FavoriteMovie.php       # Model dos Filmes Favoritos
+    │   │   │   ├── Genre.php               # Model dos gêneros de filmes
+    │   │   │   └── FavoriteMovieGenre.php  # Model das relações entre gêneros e filmes favoritos
     │   │   ├── Libs/
     │   │   │   └── TMDB/
-    │   │   │       └── TmdbClient.php                # Cliente da API do TMDB
+    │   │   │       └── TmdbClient.php     # Cliente da API do TMDB
     │   ├── tests/
     │   │   └── Feature/
-    │   │       ├── FavoriteMovie/                    # Testes de Filmes Favoritos
-    │   │       └── Tmdb/                             # Testes de API TMDB
+    │   │       ├── FavoriteMovie/    # Testes de Filmes Favoritos
+    │   │       └── Tmdb/             # Testes de API TMDB
     │   ├── routes/
-    │   │   ├── api.php
-    │   │   └── auth.php
+    │   │   ├── api.php    # Rotas da APi de filmes favoritos e de consulta a API do TMDB
+    │   │   └── auth.php   # Rotas de autenticação   
     ├── frontend/                    # Frontend Vue.js 3
     │   ├── src/
     │   │   ├── components/
