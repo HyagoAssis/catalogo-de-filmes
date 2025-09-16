@@ -16,14 +16,20 @@ integrando com a **API do TMDB**.
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/catalogo-de-filmes.git
+    git clone https://github.com/HyagoAssis/catalogo-de-filmes.git
     cd catalogo-de-filmes
 
 2. Copie o arquivo .env.example para .env do Backend:
     ```bash
+    #Linux ou Mac
     cd backend
     cp .env.example .env
     cd ..
+   
+   #Windows
+   cd backend
+   copy .env.example .env
+   cd ..
     ```
 
 3. Edite o arquivo hosts do sistema operacional
@@ -45,7 +51,7 @@ integrando com a **API do TMDB**.
     TMDB_API_KEY={SUA_API_KEY}
     ```
 
-6. Realize o login no Docker e suba os containers da aplicação
+6. Realize o login no Docker e suba os containers da aplicação (A primeira vez pode demorar um pouco)
     ```bash
     cd docker
     docker login

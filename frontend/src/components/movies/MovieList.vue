@@ -6,7 +6,7 @@
     </div>
   </template>
   <template v-else>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div v-for="item in items" :key="item.id" class="ml-2 mr-2">
         <MovieItem :movie="item" :is-favorite-screen="isFavoriteScreen" @reloadPage="fetchItems" />
       </div>

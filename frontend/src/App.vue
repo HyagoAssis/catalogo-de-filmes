@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <nav class="bg-gray-900 text-white shadow-md">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="container m-auto px-2">
         <div class="flex justify-between h-16 items-center">
           <div class="flex-shrink-0">
             <router-link to="/" class="text-xl font-bold"> Catálogo de Filmes </router-link>
@@ -85,8 +85,8 @@
           </router-link>
         </template>
 
-        <template v-if="$user.user">
-          <p class="ml-4 font-bold">Olá, {{ $user.user.name }}</p>
+        <div v-if="$user.user" class="flex items-center justify-center space-x-4 pb-2">
+          <p class="cursor-pointer font-bold text-white">Olá, {{ $user.user.name }}</p>
 
           <button
             @click="logout"
@@ -94,21 +94,23 @@
           >
             Logout
           </button>
-        </template>
-        <template v-else>
-          <button
-            @click="showLoginModal"
-            class="cursor-pointer px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold transition-colors"
-          >
-            Logar
-          </button>
-          <button
-            @click="showRegisterModal"
-            class="cursor-pointer px-4 py-2 bg-green-600 hover:bg-green-700 rounded font-semibold transition-colors"
-          >
-            Registrar
-          </button>
-        </template>
+        </div>
+        <div v-else>
+          <div class="flex justify-center space-x-2 pb-2">
+            <button
+              @click="showLoginModal"
+              class="cursor-pointer px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold transition-colors"
+            >
+              Logar
+            </button>
+            <button
+              @click="showRegisterModal"
+              class="cursor-pointer px-4 py-2 bg-green-600 hover:bg-green-700 rounded font-semibold transition-colors"
+            >
+              Registrar
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
 
