@@ -45,9 +45,10 @@ integrando com a **API do TMDB**.
     TMDB_API_KEY={SUA_API_KEY}
     ```
 
-6. Rode a aplicação
+6. Realize o login no Docker e suba os containers da aplicação
     ```bash
     cd docker
+    docker login
     docker composer up -d
    ````
 
@@ -57,8 +58,19 @@ integrando com a **API do TMDB**.
     - Testes podem ser realizados pelo seguinte comando:
     ```bash
     docker exec -it backend  php artisan test
-
-   ```
+    ```
+7. Tendo seguido todos passos corretamente, todas as vezes que for necessário rodar a aplicação, basta subir os
+   containers, não sendo necessário repetir todos passos somente se for fazer uma nova instalação do zero.
+    ```bash
+    cd docker
+    docker composer up -d
+   ````
+8. Obervações:
+    - Caso se tenha redirects do navegador, basta limpar o cache do mesmo, tendo como alternativa também usar a guia
+      anônima.
+    - Se necessário mudar nome/portas dos containers, é necessário trocar o DB_HOST e DB_PORT no .env do diretório
+      backend
+      para o caso do Banco de Dados e o arquivo de configuração do Nginx, caso seja referente ao Nginx.
 
 ## Utilização
 
