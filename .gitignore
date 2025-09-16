@@ -1,4 +1,5 @@
 backend/.env
 .idea
 /backend/.editorconfig
+/frontend/dist
 docker/nginx/logs
