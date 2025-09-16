@@ -27,7 +27,7 @@ class Genre extends Model
     {
         $data = TmdbClient::getInstance()->fetchGenres();
 
-        if (!$genres = $data['genres'] ?? null) {
+        if (! $genres = $data['genres'] ?? null) {
             throw new Exception('Não foi possível carregar os gêneros');
         }
 

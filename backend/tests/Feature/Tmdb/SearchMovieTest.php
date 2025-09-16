@@ -18,4 +18,3 @@ describe('validation rules', function () {
         getJson(route('search_movie'))->assertJsonValidationErrors(['query' => 'required']);
     });
 });
-

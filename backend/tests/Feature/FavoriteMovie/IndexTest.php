@@ -7,9 +7,12 @@ use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
 
 it('should be able to list a favorite movie', function () {
-    Sanctum::actingAs(User::factory()->create());
+    $user = User::factory()->create();
+    Sanctum::actingAs($user);
 
-    $favoriteMovie = FavoriteMovie::factory()->create();
+    $favoriteMovie = FavoriteMovie::factory([
+        'user_id' => $user->id,
+    ])->create();
 
     $request = getJson(route('favorite_movie.index'))
         ->assertOk();

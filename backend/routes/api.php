@@ -10,7 +10,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/favorite_movie/{favoriteMovie}',
         [FavoriteMovieController::class, 'destroy'])->name('favorite_movie.delete');
     Route::delete('/favorite_movie/delete_by_movie_db_id/{movieDbId}',
-        [FavoriteMovieController::class, 'deleteByMovieDbId'])->name('favorite_movie.delete');
+        [FavoriteMovieController::class, 'deleteByMovieDbId'])->name('favorite_movie.delete_by_movie_db_id');
     Route::get('/favorite_movie', [FavoriteMovieController::class, 'index'])->name('favorite_movie.index');
 });
 

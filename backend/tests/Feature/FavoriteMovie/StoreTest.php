@@ -9,14 +9,16 @@ use function Pest\Laravel\postJson;
 
 it('should be able to store a new favorite movie', function () {
     $user = User::factory()->create();
-    $genre = Genre::factory()->create();
+    $genre = Genre::factory()->create([
+        'movie_db_id' => 2,
+    ]);
 
     Sanctum::actingAs($user);
 
     $data = postJson(route('favorite_movie.store'), [
         'name' => 'Filme Teste',
         'movie_db_id' => 2,
-        'genres' => [$genre->id],
+        'genres' => [2],
         'overview' => 'Testando sinopse',
         'poster_path' => '/teste_path',
         'release_date' => '2025-09-13',

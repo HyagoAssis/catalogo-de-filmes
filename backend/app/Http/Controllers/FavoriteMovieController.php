@@ -46,6 +46,7 @@ class FavoriteMovieController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws Exception
      */
     public function store(StoreRequest $request)

@@ -6,8 +6,6 @@ use App\Http\Requests\SearchMovieRequest;
 use App\Libs\TMDB\TmdbClient;
 use App\Models\Genre;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class TmdbController extends Controller
 {
