@@ -49,7 +49,7 @@
           </button>
         </div>
 
-        <p class="mt-2 text-sm text-gray-600 line-clamp-5">
+        <p class="mt-2 text-sm text-gray-600 line-clamp-4" :title="movie.overview">
           {{ movie.overview }}
         </p>
       </div>
