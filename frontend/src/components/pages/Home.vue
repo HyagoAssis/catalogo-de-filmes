@@ -1,6 +1,9 @@
 <template>
   <div class="container m-auto mt-8 relative">
-    <h1 class="text-2xl font-bold mb-4 ml-2">Pesquisar Filmes</h1>
+    <div class="ml-2 mb-6">
+      <h1 class="text-3xl font-extrabold text-gray-900">🎬 Pesquisar Filmes</h1>
+      <p class="text-gray-600 mt-1">Encontre seus filmes favoritos rapidamente</p>
+    </div>
 
     <SearchBar
       v-model="searchText"

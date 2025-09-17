@@ -1,43 +1,48 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <nav class="bg-gray-900 text-white shadow-md">
+    <nav class="bg-gray-900 text-white shadow-lg sticky top-0 z-50">
       <div class="container m-auto px-2">
         <div class="flex justify-between h-16 items-center">
-          <div class="flex-shrink-0">
-            <router-link to="/" class="text-xl font-bold"> Catálogo de Filmes </router-link>
-          </div>
+          <router-link
+            to="/"
+            class="text-2xl font-extrabold tracking-tight text-white hover:border-b-2 hover:border-white transition-colors"
+          >
+            🎬 Catálogo de Filmes
+          </router-link>
 
-          <div class="hidden md:flex items-center space-x-4">
-            <template v-for="route in menuRoutes">
+          <div class="hidden md:flex items-center space-x-6">
+            <template v-for="route in menuRoutes" :key="route.path">
               <router-link
                 v-if="route.props"
                 :to="route.path"
-                class="hover:text-blue-400 font-semibold"
+                class="hover:border-b-2 hover:border-white font-medium transition-colors"
               >
                 {{ route.props.title }}
               </router-link>
             </template>
 
             <template v-if="$user.user">
-              <p class="ml-4 font-bold">Olá, {{ $user.user.name }}</p>
-
+              <p class="ml-6 font-semibold">
+                Olá, <span class="font-extrabold">{{ $user.user.name }}</span>
+              </p>
               <button
                 @click="showLogoutModal"
-                class="cursor-pointer px-4 py-2 border border-red-600 text-red-600 rounded font-semibold transition-colors hover:bg-red-600 hover:text-white"
+                class="cursor-pointer px-4 py-2 border border-red-500 text-red-500 rounded-lg font-semibold transition-colors hover:bg-red-600 hover:text-white"
               >
                 Sair
               </button>
             </template>
+
             <template v-else>
               <button
                 @click="showLoginModal"
-                class="cursor-pointer px-4 py-2 border border-white text-white rounded font-semibold transition-colors hover:bg-white hover:text-gray-900"
+                class="cursor-pointer px-4 py-2 border border-white text-white rounded-lg font-semibold transition-colors hover:bg-white hover:text-gray-900"
               >
                 Entrar
               </button>
               <button
                 @click="showRegisterModal"
-                class="cursor-pointer px-4 py-2 bg-white text-gray-900 rounded font-semibold transition-colors hover:bg-gray-200"
+                class="cursor-pointer px-4 py-2 bg-white text-gray-900 hover:bg-gray-200 rounded-lg font-semibold transition-colors"
               >
                 Registrar
               </button>
@@ -45,9 +50,12 @@
           </div>
 
           <div class="md:hidden">
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="focus:outline-none">
+            <button
+              @click="mobileMenuOpen = !mobileMenuOpen"
+              class="cursor-pointer focus:outline-none"
+            >
               <svg
-                class="h-6 w-6"
+                class="h-7 w-7"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -73,43 +81,42 @@
         </div>
       </div>
 
-      <div v-if="mobileMenuOpen" class="md:hidden bg-gray-800">
-        <template v-for="route in menuRoutes">
+      <div v-if="mobileMenuOpen" class="md:hidden bg-gray-800 border-t border-gray-700">
+        <template v-for="route in menuRoutes" :key="route.path">
           <router-link
             v-if="route.props"
             :to="route.path"
-            class="block px-4 py-2 text-white hover:bg-gray-700 font-semibold"
+            class="block px-4 py-2 text-white hover:bg-gray-700 font-medium transition-colors"
             @click="mobileMenuOpen = false"
           >
             {{ route.props.title }}
           </router-link>
         </template>
 
-        <div v-if="$user.user" class="flex items-center justify-center space-x-4 pb-2">
-          <p class="cursor-pointer font-bold text-white">Olá, {{ $user.user.name }}</p>
-
+        <div v-if="$user.user" class="flex flex-col items-center py-4 space-y-2">
+          <p class="font-semibold">
+            Olá, <span class="font-extrabold">{{ $user.user.name }}</span>
+          </p>
           <button
             @click="showLogoutModal"
-            class="cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 rounded font-semibold transition-colors"
+            class="cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors"
           >
             Sair
           </button>
         </div>
-        <div v-else>
-          <div class="flex justify-center space-x-2 pb-2">
-            <button
-              @click="showLoginModal"
-              class="cursor-pointer px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold transition-colors"
-            >
-              Logar
-            </button>
-            <button
-              @click="showRegisterModal"
-              class="cursor-pointer px-4 py-2 bg-green-600 hover:bg-green-700 rounded font-semibold transition-colors"
-            >
-              Registrar
-            </button>
-          </div>
+        <div v-else class="flex flex-col items-center py-4 space-y-2">
+          <button
+            @click="showLoginModal"
+            class="cursor-pointer px-4 py-2 border border-white text-white rounded-lg font-semibold transition-colors hover:bg-white hover:text-gray-900"
+          >
+            Entrar
+          </button>
+          <button
+            @click="showRegisterModal"
+            class="cursor-pointer px-4 py-2 bg-white text-gray-900 hover:bg-gray-200 rounded-lg font-semibold transition-colors"
+          >
+            Registrar
+          </button>
         </div>
       </div>
     </nav>
@@ -161,10 +168,6 @@ export default {
         return route.props?.showInMenu && (!requiresAuth || this.$user.isLogged());
       });
     },
-  },
-
-  created() {
-    //this.$user.logout();
   },
 };
 </script>

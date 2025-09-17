@@ -10,7 +10,6 @@
       :disabled="disabled"
     />
 
-    <!-- Botão de limpar -->
     <button
       v-if="modelValue"
       class="cursor-pointer absolute right-8 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
@@ -21,7 +20,6 @@
       ✖
     </button>
 
-    <!-- Botão de pesquisa -->
     <button
       class="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
       @click="$emit('search')"

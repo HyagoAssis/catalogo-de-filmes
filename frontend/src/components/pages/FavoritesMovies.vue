@@ -1,6 +1,9 @@
 <template>
   <div class="container m-auto mt-8 relative">
-    <h1 class="text-2xl font-bold mb-4 ml-2">Meus favoritos</h1>
+    <div class="ml-2 mb-6">
+      <h1 class="text-3xl font-extrabold text-gray-900">⭐ Meus Favoritos</h1>
+      <p class="text-gray-600 mt-1">Veja todos os filmes que você guardou</p>
+    </div>
     <div class="flex flex-col sm:flex-row items-center gap-2 mb-4 mx-2">
       <SearchBar
         v-model="searchText"
