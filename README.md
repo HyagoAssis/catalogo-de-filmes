@@ -113,7 +113,7 @@ integrando com a **[API do TMDB](https://www.themoviedb.org/)**.
     │   │       ├── FavoriteMovie/    # Testes de Filmes Favoritos
     │   │       └── Tmdb/             # Testes de API TMDB
     │   ├── routes/
-    │   │   ├── api.php    # Rotas da APi de filmes favoritos e de consulta a API do TMDB
+    │   │   ├── api.php    # Rotas da API de filmes favoritos e de consulta a API do TMDB
     │   │   └── auth.php   # Rotas de autenticação   
     ├── frontend/                    # Frontend Vue.js 3
     │   ├── src/
