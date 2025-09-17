@@ -82,7 +82,7 @@ integrando com a **API do TMDB**.
 
 1. É possível pesquisar filmes na tela inicial:
     - Exemplo realizando a pesquisa pelos filmes do Harry Potter, usando a barra de busca.
-      <img width="2553" height="886" alt="image" src="https://github.com/user-attachments/assets/c66c6b9e-c46b-45b2-a988-f89b2c88f71f" />
+      <img width="1916" height="933" alt="image" src="https://github.com/user-attachments/assets/635a7d61-39c1-4645-8994-55072036d0d3" />
     - Para favoritar é necessário estar logado, e pode ser feito clicando no ícone de coração de cada card.
     - Filmes favoritados podem sem encontrados na página "Favoritos" ('/favorites') que fica protegida a usuários
       logados.
