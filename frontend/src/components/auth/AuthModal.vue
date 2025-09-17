@@ -10,6 +10,7 @@
       @change-action="actualAction = $event"
       @close="$emit('close')"
     />
+    <Logout v-if="actualAction === 'logout'" @close="$emit('close')" />
   </Modal>
 </template>
 
@@ -17,10 +18,11 @@
 import Modal from '@/components/common/Modal.vue';
 import Login from './Login.vue';
 import Register from './Register.vue';
+import Logout from '@/components/auth/Logout.vue';
 
 export default {
   name: 'AuthModal',
-  components: { Register, Modal, Login },
+  components: { Register, Modal, Login, Logout },
 
   props: {
     action: {
@@ -32,7 +34,7 @@ export default {
   data() {
     return {
       showModal: true,
-      authActions: ['login', 'register', 'forgot_password'],
+      authActions: ['login', 'register', 'logout'],
       actualAction: null,
     };
   },

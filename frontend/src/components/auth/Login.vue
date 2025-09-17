@@ -72,9 +72,7 @@ export default {
       authService
         .login(this.userToRegister)
         .then(() => {
-          this.$user.setSession();
-
-          window.location.reload();
+          this.$user.setSession(true);
         })
         .catch((error) => {
           this.errorMessage =

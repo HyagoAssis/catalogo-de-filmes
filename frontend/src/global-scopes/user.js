@@ -1,31 +1,37 @@
 import { authService } from '@/service/resource.js';
 import { reactive } from 'vue';
+import alerts from '@/global-scopes/alerts.js';
 
 export const User = reactive({
   user: null,
 
-  fetchUser() {
-    authService
+  async fetchUser() {
+    await authService
       .getUser()
       .then((response) => {
         this.setUser(response.data);
       })
       .catch((error) => {
         if (error.response?.status === 419) {
-          this.setSession(true);
+          this.setSession(false, true);
         }
       });
   },
 
-  setSession(forceCsrf = false) {
+  setSession(fetchUser = false, forceCsrf = false) {
     this.ensureCsrf(forceCsrf);
+
+    if (fetchUser) {
+      this.fetchUser().then(() => {
+        window.location.reload();
+      });
+      return;
+    }
 
     const user = localStorage.getItem('user');
 
     if (user) {
       this.user = JSON.parse(user);
-    } else {
-      this.fetchUser();
     }
   },
 
@@ -40,10 +46,18 @@ export const User = reactive({
   },
 
   logout() {
-    authService.logout();
+    authService
+      .logout()
+      .then(() => {
+        this.user = null;
 
-    this.user = null;
-    localStorage.removeItem('user');
+        localStorage.removeItem('user');
+
+        window.location.reload();
+      })
+      .catch(() => {
+        console.log('Não foi possível deslogar');
+      });
   },
 
   setUser(user) {

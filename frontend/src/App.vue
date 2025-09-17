@@ -22,10 +22,10 @@
               <p class="ml-4 font-bold">Olá, {{ $user.user.name }}</p>
 
               <button
-                @click="logout"
+                @click="showLogoutModal"
                 class="cursor-pointer px-4 py-2 border border-red-600 text-red-600 rounded font-semibold transition-colors hover:bg-red-600 hover:text-white"
               >
-                Logout
+                Sair
               </button>
             </template>
             <template v-else>
@@ -89,10 +89,10 @@
           <p class="cursor-pointer font-bold text-white">Olá, {{ $user.user.name }}</p>
 
           <button
-            @click="logout"
+            @click="showLogoutModal"
             class="cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 rounded font-semibold transition-colors"
           >
-            Logout
+            Sair
           </button>
         </div>
         <div v-else>
@@ -141,10 +141,8 @@ export default {
     };
   },
   methods: {
-    logout() {
-      this.$user.logout();
-
-      window.location.reload();
+    showLogoutModal() {
+      this.authModal.open('logout');
     },
     showLoginModal() {
       this.authModal.open('login');
@@ -163,6 +161,10 @@ export default {
         return route.props?.showInMenu && (!requiresAuth || this.$user.isLogged());
       });
     },
+  },
+
+  created() {
+    //this.$user.logout();
   },
 };
 </script>
