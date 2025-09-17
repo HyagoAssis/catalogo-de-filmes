@@ -58,7 +58,7 @@ integrando com a **[API do TMDB](https://www.themoviedb.org/)**.
     docker composer up -d
    ````
 
-    - A aplicação já poderá ser acessada em http://catalogo.site.
+    - A aplicação já poderá ser acessada em [catalogo.site].
     - Todos demais comandos, instalações e importações já foram realizadas nos arquivos entrypoints de cada container
       docker.
     - Testes podem ser realizados pelo seguinte comando:
@@ -66,7 +66,7 @@ integrando com a **[API do TMDB](https://www.themoviedb.org/)**.
     docker exec -it backend  php artisan test
     ```
 7. Tendo seguido todos passos corretamente, todas as vezes que for necessário rodar a aplicação, basta subir os
-   containers, não sendo necessário repetir todos passos somente se for fazer uma nova instalação do zero.
+   containers, não sendo necessário repetir todos passos, somente se for fazer uma nova instalação do zero.
     ```bash
     cd docker
     docker composer up -d
