@@ -1,7 +1,7 @@
 # Cátalodo de Filmes
 
 Aplicação para gerenciamento de filmes favoritos, construída com **Laravel** (backend) e **Vue.js 3** (frontend),
-integrando com a **API do TMDB**.
+integrando com a **[API do TMDB](https://www.themoviedb.org/)**.
 
 ---
 
