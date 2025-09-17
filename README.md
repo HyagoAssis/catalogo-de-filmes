@@ -86,6 +86,7 @@ integrando com a **API do TMDB**.
     - Para favoritar é necessário estar logado, e pode ser feito clicando no ícone de coração de cada card.
     - Filmes favoritados podem sem encontrados na página "Favoritos" ('/favorites') que fica protegida a usuários
       logados.
+      <img width="1913" height="914" alt="image" src="https://github.com/user-attachments/assets/3b87cadb-8429-4731-bc0b-c7f296f8f2a5" />
     - Filmes favoritos podem ser removidos ao desmarcar o ícone de coração.
 
 ## Organização
