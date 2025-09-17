@@ -18,6 +18,11 @@
           </h2>
           <button
             @click="isFavoriteScreen ? deleteFavoriteMovie(movie.id) : setFavorite(movie)"
+            :title="
+              isFavoriteScreen || movie.is_favorite
+                ? 'Remover dos favoritos'
+                : 'Inserir aos favoritos'
+            "
             class="cursor-pointer transition-colors"
           >
             <svg

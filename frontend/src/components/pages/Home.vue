@@ -6,6 +6,7 @@
       v-model="searchText"
       :disabled="!!requests"
       @search="search"
+      @clean="clean"
       class="mr-2 ml-2 mb-2"
     />
 
@@ -48,6 +49,10 @@ export default {
   methods: {
     search() {
       this.params.query = this.searchText;
+    },
+    clean() {
+      this.searchText = '';
+      this.params.query = '';
     },
   },
 

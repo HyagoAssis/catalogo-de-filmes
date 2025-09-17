@@ -1,8 +1,25 @@
 <template>
   <Spinner v-if="requests" />
   <template v-else-if="!items || items.length === 0">
-    <div class="text-center mt-2">
-      <p>Nenhum resultado encontrado</p>
+    <div class="flex flex-col items-center justify-center mt-12 text-gray-500">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-20 w-20 mb-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 14l2-2 4 4m0-4l2-2 4 4M12 20h.01M4.93 4.93l.01.01M19.07 4.93l.01.01"
+        />
+      </svg>
+      <p class="text-lg font-semibold mb-2">Nenhum resultado encontrado</p>
+      <p class="text-sm text-gray-400 text-center">
+        Tente ajustar os filtros ou procurar por outro termo.
+      </p>
     </div>
   </template>
   <template v-else>

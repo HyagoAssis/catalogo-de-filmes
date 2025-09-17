@@ -2,7 +2,13 @@
   <div class="container m-auto mt-8 relative">
     <h1 class="text-2xl font-bold mb-4 ml-2">Meus favoritos</h1>
     <div class="flex flex-col sm:flex-row items-center gap-2 mb-4 mx-2">
-      <SearchBar v-model="searchText" :disabled="!!requests" @search="search" class="w-full h-10" />
+      <SearchBar
+        v-model="searchText"
+        :disabled="!!requests"
+        @search="search"
+        @clean="clean"
+        class="w-full h-10"
+      />
 
       <div class="flex items-center gap-2" v-if="genres">
         <label for="genre" class="text-gray-700 flex items-center h-10"> Gênero: </label>
@@ -60,6 +66,11 @@ export default {
   methods: {
     search() {
       this.params.query = this.searchText;
+    },
+
+    clean() {
+      this.searchText = '';
+      this.params.query = '';
     },
 
     fetchGenres() {
