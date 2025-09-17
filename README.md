@@ -58,7 +58,7 @@ integrando com a **[API do TMDB](https://www.themoviedb.org/)**.
     docker composer up -d
    ````
 
-    - A aplicação já poderá ser acessada em [catalogo.site](catalogo.site).
+    - A aplicação já poderá ser acessada em 'catalogo.site'.
     - Todos demais comandos, instalações e importações já foram realizadas nos arquivos entrypoints de cada container
       docker.
     - Testes podem ser realizados pelo seguinte comando:
